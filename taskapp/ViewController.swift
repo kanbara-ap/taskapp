@@ -13,9 +13,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     let realm : Realm = try! Realm()
     
-    var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true).filter("title = ")
+    var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+    
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var filterText: UITextField!
+    
+    @IBAction func filterButton(_ sender: Any) {
+        
+        if filterText.text == nil {
+        
+        }else{
+            var filtertext : String = filterText.text!
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true).filter("category=%@",filtertext)
+            loadView()
+            viewDidLoad()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
