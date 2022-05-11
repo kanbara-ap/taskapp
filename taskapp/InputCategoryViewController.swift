@@ -12,6 +12,8 @@ class InputCategoryViewController: UIViewController {
     
     let realm: Realm = try! Realm()
     var category = Category()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +27,7 @@ class InputCategoryViewController: UIViewController {
         try! realm.write{
             if self.newCategoryTextField.text != nil && self.newCategoryTextField.text != "" {
                 let allcategories = realm.objects(Category.self)
-                category.id = (allcategories.max(ofProperty: "id") ?? 0)! + 1
+                category.id = allcategories.max(ofProperty: "id")! + 1
                 self.category.name = self.newCategoryTextField.text!
                 self.realm.add(self.category, update: .modified)
             }

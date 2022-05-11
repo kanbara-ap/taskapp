@@ -19,11 +19,13 @@ class Category : Object{
         return "id"
     }
     
-    static func loadAll() -> [String] {
-        let categories = realm.objects(Category.self).sorted(byKeyPath: "id", ascending: false)
-        var ret: [String] = []
+
+    
+    static func loadAll() -> [Category] {
+        let categories = realm.objects(Category.self).sorted(byKeyPath: "id", ascending: true)
+        var ret: [Category] = []
         for category in categories {
-            ret.append(category.name)
+            ret.append(category)
         }
         return ret
     }
